@@ -11,3 +11,4 @@
 * Emma Yeap, https://github.com/microcat
 * Stefanos Togoulidis, https://github.com/hypest
 * Sean Barbeau, https://github.com/barbeau
+* Alistair Sykes, https://github.com/alistairsykes
