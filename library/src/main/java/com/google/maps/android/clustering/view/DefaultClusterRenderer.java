@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.Projection;
@@ -137,7 +138,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements ClusterRen
         mDensity = context.getResources().getDisplayMetrics().density;
         mIconGenerator = new IconGenerator(context);
         mIconGenerator.setContentView(makeSquareTextView(context));
-        mIconGenerator.setTextAppearance(R.style.amu_ClusterIcon_TextAppearance);
+        mIconGenerator.setTextAppearance(R.style.amu_ClusterIcon_TextAppearance); // Set default
         mIconGenerator.setBackground(makeClusterBackground());
         mClusterManager = clusterManager;
     }
@@ -240,6 +241,11 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements ClusterRen
             return String.valueOf(bucket);
         }
         return bucket + "+";
+    }
+
+    @StyleRes
+    protected int getClusterTextAppearance(int clusterSize) {
+        return R.style.amu_ClusterIcon_TextAppearance;
     }
 
     /**
@@ -929,6 +935,7 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements ClusterRen
         BitmapDescriptor descriptor = mIcons.get(bucket);
         if (descriptor == null) {
             mColoredCircleBackground.getPaint().setColor(getColor(bucket));
+            mIconGenerator.setTextAppearance(getClusterTextAppearance(bucket));
             descriptor = BitmapDescriptorFactory.fromBitmap(mIconGenerator.makeIcon(getClusterText(bucket)));
             mIcons.put(bucket, descriptor);
         }
